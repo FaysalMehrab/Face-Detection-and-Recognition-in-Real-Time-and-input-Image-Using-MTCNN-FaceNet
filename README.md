@@ -19,7 +19,7 @@ For examples see `test_on_images.ipynb`.
 
 ## Requirements
 * pytorch 0.2
-*tensorflow
+* tensorflow
 * Pillow, numpy
 
 ## Credit
