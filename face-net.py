@@ -7,10 +7,10 @@ from sklearn.preprocessing import Normalizer
 from sklearn.svm import SVC
 from matplotlib import pyplot
 # load faces
-data = load('cel.npz')
+data = load('test.npz')
 testX_faces = data['arr_2']
 # load face embeddings
-data = load('cel-embeddings.npz')
+data = load('test-embeddings.npz')
 trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
 # normalize input vectors
 in_encoder = Normalizer(norm='l2')
@@ -38,10 +38,10 @@ yhat_prob = model.predict_proba(samples)
 class_index = yhat_class[0]
 class_probability = yhat_prob[0,class_index] * 100
 predict_names = out_encoder.inverse_transform(yhat_class)
-print('Predicted: %s (%.2f)' % (predict_names[0], class_probability))
-print('Appeared:  %s (%.2f)' % (random_face_name[0],(class_index)))
+print('Predicted: %s (%.3f)' % (predict_names[0], class_probability))
+print('Expected: %s' % random_face_name[0])
 # plot for fun
 pyplot.imshow(random_face_pixels)
-title = '%s (%.2f)' % (random_face_name[0], (class_index))
+title = '%s (%.3f)' % (predict_names[0], class_probability)
 pyplot.title(title)
 pyplot.show()
