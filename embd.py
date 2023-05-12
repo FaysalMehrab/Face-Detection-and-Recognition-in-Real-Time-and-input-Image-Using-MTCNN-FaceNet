@@ -6,6 +6,10 @@ from numpy import savez_compressed
 from keras.models import load_model
 from keras_facenet import FaceNet
 from tensorflow import keras
+from sklearn.svm import SVC
+from tensorflow import keras
+import tensorflow as tf
+
 
 embedder = FaceNet()
 
@@ -19,15 +23,22 @@ def get_embedding(model, face_pixels):
 	# transform face into one sample
 	samples = expand_dims(face_pixels, axis=0)
 	# make prediction to get embedding
-	# yhat = model.predict(samples)
-	# return yhat[0]
+	yhat = model.predict(samples)
+	return yhat[0]
 
 # load the face dataset
 data = load('test.npz')
+
 trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
 print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
 # load the facenet model
-model = embedder
+# model = load_model('facenet_keras.h5')
+# model.summary()
+# model = embedder
+# model = SVC(kernel='linear', probability=True)
+# model = load_model('face-rec_Google.npz')
+# model = load('test.npz')
+model = tf.keras.applications.ResNet50(weights='imagenet')
 
 print('Loaded Model')
 # convert each face in the train set to an embedding
@@ -46,3 +57,7 @@ newTestX = asarray(newTestX)
 print(newTestX.shape)
 # save arrays to one file in compressed format
 savez_compressed('test-embeddings.npz', newTrainX, trainy, newTestX, testy)
+
+
+
+
