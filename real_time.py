@@ -1,7 +1,7 @@
-import torch
-from torchvision import transforms 
-from PIL import Image 
-import numpy as np 
+# import torch
+# from torchvision import transforms 
+# from PIL import Image 
+# import numpy as np 
 import cv2 
 from mtcnn import MTCNN
 
@@ -14,7 +14,6 @@ while True:
     ret,frame = cap.read()
 
     output = detector.detect_faces(frame)
-
 
     for single_output in output:
         x,y,w,h = single_output['box']

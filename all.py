@@ -8,7 +8,8 @@ from numpy import asarray
 from mtcnn.mtcnn import MTCNN
 
 # extract a single face from a given photograph
-def extract_face(filename, required_size=(160, 160)):
+# def extract_face(filename, required_size=(160, 160)):
+def extract_face(filename, required_size=(224, 224)):
 	# load image from file
 	image = Image.open(filename)
 	# convert to RGB, if needed
@@ -68,8 +69,12 @@ def load_dataset(directory):
 
 # load train dataset
 trainX, trainy = load_dataset('images/train/')
+# trainX, trainy = load_dataset('images/train2/')
+# trainX, trainy = load_dataset('images/train3/')
 print(trainX.shape, trainy.shape)
 # load test dataset
 testX, testy = load_dataset('images/val/')
+# testX, testy = load_dataset('images/val2/')
+# testX, testy = load_dataset('images/val3/')
 # save arrays to one file in compressed format
-savez_compressed('test.npz', trainX, trainy, testX, testy)
+savez_compressed('ss.npz', trainX, trainy, testX, testy)
