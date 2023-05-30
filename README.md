@@ -1,6 +1,6 @@
-# MTCNN
+# MTCNN && Facenet
 
-`pytorch` implementation of **inference stage** of face detection algorithm described in  
+Face-Detection-and-Recognition-in-Real-Time-and-input-Image-Using-MTCNN-FaceNet 
 
 
 ## Example
