@@ -4,7 +4,8 @@
 
 
 ## Example
-![example of a face detection](images/example.png)
+![Screenshot (173)](https://github.com/FaysalMehrab/Face-Detection-and-Recognition-in-Real-Time-and-input-Image-Using-MTCNN-FaceNet/assets/93445792/f23e57cd-2f2f-433f-94b0-6abd6a3a8182)
+
 
 ## How to use it
 Just download the repository and then do this
