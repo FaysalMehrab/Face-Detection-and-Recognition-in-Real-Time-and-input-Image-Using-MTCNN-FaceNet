@@ -4,6 +4,7 @@ from mtcnn import MTCNN
 from keras.models import load_model
 from scipy.spatial.distance import cosine
 import tensorflow as tf
+import time
 from keras_facenet import FaceNet
 
 # Load the FaceNet model
@@ -19,6 +20,9 @@ mtcnn_detector = MTCNN()
 
 # Open the video capture
 video_capture = cv2.VideoCapture(0)  # Use 0 for webcam or provide the path to a video file
+# Initialize FPS variables
+fps_start_time = time.time()
+fps_frame_count = 0
 
 while True:
     # Read a frame from the video
@@ -40,7 +44,7 @@ while True:
 
         # Preprocess the face ROI
         face_roi = cv2.cvtColor(face_roi, cv2.COLOR_BGR2RGB)
-        face_roi = cv2.resize(face_roi, (224, 224))
+        face_roi = cv2.resize(face_roi, (28, 28))
         face_roi = face_roi.astype('float32')
         # mean, std = face_roi.mean(), face_roi.std()
         # face_roi = (face_roi - mean) / std
@@ -57,7 +61,7 @@ while True:
         min_distance_idx = np.argmin(distances)
 
         # Define a threshold for face recognition
-        threshold = 0.75
+        threshold = 0.7
 
         # Check if the minimum distance is below the threshold
         if min_distance < threshold:
@@ -77,6 +81,16 @@ while True:
             # Draw bounding box and label for unknown face
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
             cv2.putText(frame, 'Unknown', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+
+    # Calculate FPS
+    fps_frame_count += 1
+    if time.time() - fps_start_time >= 1.0:
+        fps = fps_frame_count / (time.time() - fps_start_time)
+        fps_start_time = time.time()
+        fps_frame_count = 0
+
+    # Display the FPS on the frame
+    cv2.putText(frame, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)            
 
     # Display the frame
     cv2.imshow('Video', frame)
