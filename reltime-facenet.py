@@ -21,6 +21,7 @@ mtcnn_detector = MTCNN()
 # Open the video capture
 video_capture = cv2.VideoCapture(0)  # Use 0 for webcam or provide the path to a video file
 # Initialize FPS variables
+fps = 0
 fps_start_time = time.time()
 fps_frame_count = 0
 
